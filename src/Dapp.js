@@ -154,7 +154,7 @@ export class Dapp extends React.Component {
         )
     }
 
-    let held_numbers = [3, 22, 57, 803, 723, 1007, 1991, 1211, 27, 93, 4000, 9334, 8633, 4143, 9955];
+    let held_numbers = [3, 22, 57, 803, 723, 1007, 1991, 1211, 27, 93, 4000, 9334, 8633, 4143, 9955, 3368, 9576];
 
     let  held_numbers_dict = {};
 
