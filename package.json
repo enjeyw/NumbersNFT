@@ -10,11 +10,14 @@
     "ethers": "^5.4.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "serve": "^11.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-old": "react-scripts start",
+    "build-old": "react-scripts build",
+    "start": "node sammy.js; serve -s _static -l tcp://0.0.0.0:$PORT -n",
+    "build": "rm -r _static 2>/dev/null; node sammy.js; react-scripts build && mv build _static",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
