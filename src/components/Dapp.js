@@ -189,10 +189,13 @@ export class Dapp extends React.Component {
 
               </ul>
           </div>
+            <div className="container" style={{marginTop: '2em'}}>
+                Numbers are free to mint - gas fees only.
+            </div>
           <div className="Links">
             <a href="https://twitter.com/thenumbersnft">Twitter</a> <a href="https://github.com/numbersnft/NumbersNFT">Github</a> <a href="https://etherscan.io/address/0xc5ac2e26bfbc501640a4e17f2f8e04ba0f7d4490">Etherscan</a>
           </div>
-          <div style={{marginTop: '2em'}}>
+          <div style={{marginTop: '2.5em'}}>
             { actionSection }
           </div>
           <div className="HoverValue">
