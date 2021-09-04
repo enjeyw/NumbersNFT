@@ -1,7 +1,7 @@
 import React from "react";
 
 // We'll use ethers to interact with the Ethereum network and our contract
-import { ethers } from "ethers";
+import { ethers, utils, BigNumber } from "ethers";
 
 // We import the contract's artifacts and address here, as we are going to be
 // using them with ethers
@@ -181,7 +181,7 @@ export class Dapp extends React.Component {
             The concept is simple:
             </div>
               <ul className="dashed">
-                <li> There are 10,000 available: 0 - 9999</li>
+                <li> There are 10,000 numbers available: 0 - 9999</li>
                 <li> Rarity is native. Low Numbers? Primes? Dates? <br/> Make of it what you will. </li>
                 <li> Mint order is pseudo-random. The order is deterministically generated from an initial seed, with a maximum of 1 mint per block. </li>
                 <li> The artwork is the Number. Obviously.</li>
@@ -337,7 +337,7 @@ export class Dapp extends React.Component {
         }
     }
 
-
+    const totalSupply = await this._token.totalSupply();
 
 
   }
