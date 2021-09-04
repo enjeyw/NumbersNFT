@@ -1,0 +1,114 @@
+* {
+  background-color: #1a1a1a;
+}
+
+body {
+  color: #ffffff;
+  font-size: 1.1rem;
+  margin: 0;
+  font-family: monospace;
+
+  /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
+  /*'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',*/
+  /*sans-serif;*/
+
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  color: white;
+  margin: 1rem;
+  border: 1px solid #ffffff;
+  /*background-color: white;*/
+  border-radius: 2px;
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #cfcfcf;
+}
+
+input {
+  color: white;
+  margin: 1rem;
+  border: 1px solid #ffffff;
+  /*background-color: white;*/
+  border-radius: 2px;
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 100;
+}
+
+ul {
+  margin: 0;
+}
+ul.dashed {
+  list-style-type: none;
+}
+ul.dashed > li {
+  text-indent: -1.2em;
+}
+ul.dashed > li:before {
+  content: "-";
+  text-indent: -5px;
+}
+
+li {
+  margin-top: 1em
+}
+
+.MainContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Explanation {
+  max-width: 600px;
+}
+
+.HoverValue {
+  height: 30px;
+}
+.GridContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 50px;
+}
+
+.WhiteItem {
+  background-color: white;
+}
+
+.GridItem {
+  width: 10px;
+  height: 10px;
+  margin: -1px;
+  border: 0.5px solid #ffffff;
+}
+
+.GridItem:hover {
+  background-color: #921010;
+}
+
+a, a:hover, a:active, a:visited { color: white; }
+
+.Links {
+  margin: 1em;
+}
