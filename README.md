@@ -6,3 +6,5 @@ The concept is simple:
 - Mint order is pseudo-random. The order is deterministically generated from an initial seed, with a maximum of 1 mint per block.
 - The artwork is the Number. Obviously.
 - What can you do with them? Whatever can you do with numbers.
+
+https://thenumbersnft.com/
