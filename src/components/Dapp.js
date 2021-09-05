@@ -57,7 +57,9 @@ export class Dapp extends React.Component {
       networkError: undefined,
       isMinting: false,
       mintingSucceeded: false,
-      hoverValue: ''
+      hoverValue: '',
+      art: '',
+      artActive: false
     };
 
     this.state = this.initialState;
@@ -91,12 +93,24 @@ export class Dapp extends React.Component {
         actionSection = (
             <div className="container">
                 <div className="container">
-                        <div style={{margin: '0.2em'}}>
-                            You have <b> {this.state.balance.toString()} </b> Numbers:
-                        </div>
-                        <div>
-                            {this.state.holdings.map(h => <span style={{margin: "0.1em"}}> {h.toString()}</span>)}
-                        </div>
+                    <div style={{margin: '0.2em'}}>
+                        You have <b> {this.state.balance.toString()} </b> Numbers (click to view art):
+                    </div>
+                    <div style={{display: 'flex'}}>
+                        {this.state.holdings.map(h =>
+                            <div
+                                onClick={() => this._handleNumberClicked(h)}
+                                style={{margin: "0.4em", cursor: "pointer"}}
+                            >
+                                {h.toString()}
+                            </div>)
+                        }
+                    </div>
+                    <div
+                        onClick={() => this.setState({artActive: false})}
+                        className={this.state.artActive? "ArtModal" : "ArtModal ArtHidden"}>
+                        <img src={this.state.art} style={{width: "350px"}} />
+                    </div>
                 </div>
 
                 <div className="row">
@@ -345,7 +359,21 @@ export class Dapp extends React.Component {
 
     const totalSupply = await this._token.totalSupply();
 
+  }
 
+  async _handleNumberClicked(id) {
+      let art = await this._getArt(id);
+      this.setState({art})
+      this.setState({artActive: true})
+  }
+
+
+  async _getArt(id) {
+      let uri = await this._token.tokenURI(id);
+      const URI_f = await fetch(uri);
+      const URI_data = await URI_f.json();
+
+      return URI_data.image
   }
 
   // This method sends an ethereum transaction to transfer tokens.
