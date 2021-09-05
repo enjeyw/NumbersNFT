@@ -66,9 +66,6 @@ export class Dapp extends React.Component {
   render() {
     // Ethereum wallets inject the window.ethereum object. If it hasn't been
     // injected, we instruct the user to install MetaMask.
-    if (window.ethereum === undefined) {
-      return <NoWalletDetected />;
-    }
 
     // The next thing we need to do, is to ask the user to connect their wallet.
     // When the wallet gets connected, we are going to save the users's address
@@ -78,7 +75,9 @@ export class Dapp extends React.Component {
     // Note that we pass it a callback that is going to be called when the user
     // clicks a button. This callback just calls the _connectWallet method.
     let actionSection;
-    if (!this.state.selectedAddress) {
+      if (window.ethereum === undefined) {
+          actionSection = <NoWalletDetected />;
+      } else if (!this.state.selectedAddress) {
       actionSection = (
         <ConnectWallet 
           connectWallet={() => this._connectWallet()} 
@@ -155,7 +154,11 @@ export class Dapp extends React.Component {
         )
     }
 
-    let held_numbers = [3, 22, 57, 803, 723, 1007, 1991, 1211, 27, 93, 4000, 9334, 8633, 4143, 9955];
+    let held_numbers = [
+        3, 22, 57, 803, 723, 1007, 1991, 1211, 27, 93, 4000, 9334, 8633, 4143, 9955, 3369, 3368, 9576, 3205, 4720, 5081,
+        2456, 8209, 6744, 1489, 175, 705, 7863, 4592, 1677, 5310, 3900, 601, 5255, 9858, 4479, 5298, 9440, 7803, 7273, 4840, 1457
+    ];
+      // 0x528cac5b1b1197917bc9de1b32b58b436d235485960e179bc039b9ec3495a128
 
     let  held_numbers_dict = {};
 
@@ -193,7 +196,7 @@ export class Dapp extends React.Component {
                 Numbers are free to mint - gas fees only.
             </div>
           <div className="Links">
-            <a href="https://twitter.com/thenumbersnft">Twitter</a> <a href="https://github.com/numbersnft/NumbersNFT">Github</a> <a href="https://etherscan.io/address/0xc5ac2e26bfbc501640a4e17f2f8e04ba0f7d4490">Etherscan</a>
+            <a href="https://twitter.com/thenumbersnft">Twitter</a> <a href="https://github.com/numbersnft/NumbersNFT">Github</a> <a href="https://etherscan.io/address/0xc5ac2e26bfbc501640a4e17f2f8e04ba0f7d4490">Etherscan</a> <a href="https://discord.gg/4Ag7nUGs"> Discord</a>
           </div>
           <div style={{marginTop: '2.5em'}}>
             { actionSection }
