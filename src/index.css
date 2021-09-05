@@ -112,3 +112,19 @@ a, a:hover, a:active, a:visited { color: white; }
 .Links {
   margin: 1em;
 }
+
+.ArtModal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.64);
+}
+
+.ArtHidden {
+  display: none;
+}
