@@ -210,7 +210,7 @@ export class Dapp extends React.Component {
                 Numbers are free to mint - gas fees only.
             </div>
           <div className="Links">
-            <a href="https://twitter.com/thenumbersnft">Twitter</a> <a href="https://github.com/numbersnft/NumbersNFT">Github</a> <a href="https://etherscan.io/address/0xc5ac2e26bfbc501640a4e17f2f8e04ba0f7d4490">Etherscan</a> <a href="https://discord.gg/4Ag7nUGs"> Discord</a>
+            <a href="https://twitter.com/thenumbersnft">Twitter</a> <a href="https://github.com/enjeyw/NumbersNFT">Github</a> <a href="https://etherscan.io/address/0xc5ac2e26bfbc501640a4e17f2f8e04ba0f7d4490">Etherscan</a> <a href="https://discord.gg/4Ag7nUGs"> Discord</a>
           </div>
           <div style={{marginTop: '2.5em'}}>
             { actionSection }
