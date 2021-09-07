@@ -92,8 +92,12 @@ li {
   margin: 10px 50px;
 }
 
-.WhiteItem {
+.MintedItem {
   background-color: white;
+}
+
+.HeldItem {
+  background-color: #03d600;
 }
 
 .GridItem {

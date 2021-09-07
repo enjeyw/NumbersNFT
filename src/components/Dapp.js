@@ -20,6 +20,7 @@ import { Mint } from "./Mint";
 import { TransactionErrorMessage } from "./TransactionErrorMessage";
 import { WaitingForTransactionMessage } from "./WaitingForTransactionMessage";
 import { NoTokensMessage } from "./NoTokensMessage";
+import {NUMBERS} from "../numbers";
 
 // This is the Hardhat Network id, you might change it in the hardhat.config.js
 // Here's a list of network ids https://docs.metamask.io/guide/ethereum-provider.html#properties
@@ -59,7 +60,9 @@ export class Dapp extends React.Component {
       mintingSucceeded: false,
       hoverValue: '',
       art: '',
-      artActive: false
+      artActive: false,
+      totalSupply: 50
+
     };
 
     this.state = this.initialState;
@@ -81,8 +84,8 @@ export class Dapp extends React.Component {
           actionSection = <NoWalletDetected />;
       } else if (!this.state.selectedAddress) {
       actionSection = (
-        <ConnectWallet 
-          connectWallet={() => this._connectWallet()} 
+        <ConnectWallet
+          connectWallet={() => this._connectWallet()}
           networkError={this.state.networkError}
           dismiss={() => this._dismissNetworkError()}
         />
@@ -127,7 +130,7 @@ export class Dapp extends React.Component {
                         {/*)}*/}
 
                         {/*
-              Sending a transaction can fail in multiple ways. 
+              Sending a transaction can fail in multiple ways.
               If that happened, we show a message here.
             */}
                         {this.state.transactionError && (
@@ -168,16 +171,16 @@ export class Dapp extends React.Component {
         )
     }
 
-    let held_numbers = [
-        3, 22, 57, 803, 723, 1007, 1991, 1211, 27, 93, 4000, 9334, 8633, 4143, 9955, 3369, 3368, 9576, 3205, 4720, 5081,
-        2456, 8209, 6744, 1489, 175, 705, 7863, 4592, 1677, 5310, 3900, 601, 5255, 9858, 4479, 5298, 9440, 7803, 7273, 4840, 1457
-    ];
-      // 0x528cac5b1b1197917bc9de1b32b58b436d235485960e179bc039b9ec3495a128
+    let MintedNumbers = NUMBERS.slice(0, this.state.totalSupply);
 
-    let  held_numbers_dict = {};
+    let MintedNumbers_dict = {}
+    MintedNumbers.map(h => {
+        MintedNumbers_dict[h] = 1
+    });
 
-    held_numbers.map(h => {
-      held_numbers_dict[h] = 1
+    let  HeldNumbers_dict = {}
+    this.state.holdings.map(h => {
+        HeldNumbers_dict[h] = 1
     });
 
 
@@ -222,15 +225,15 @@ export class Dapp extends React.Component {
                onMouseOver={e => this.handleMouseOut()}
           >
               {all_numbers.map(n => {
-                let active = held_numbers_dict[n]
-                  let style = active? {backgroundColor:'white'} : {}
-                return (
-                    <div
-                        onMouseOver={e => this.handleMouseIn(n)}
-                        className= {active? "WhiteItem GridItem": "GridItem"}
-                    >
-                    </div>
-                )
+                  let minted = MintedNumbers_dict[n];
+                  let held = HeldNumbers_dict[n];
+
+                  return (
+                      <div
+                          onMouseOver={e => this.handleMouseIn(n)}
+                          className= {`${held? "HeldItem " : ''}${minted? "MintedItem " : ''}GridItem`}
+                      ></div>
+                  )
               })}
           </div>
         </div>
@@ -266,14 +269,14 @@ export class Dapp extends React.Component {
       // `accountsChanged` event can be triggered with an undefined newAddress.
       // This happens when the user removes the Dapp from the "Connected
       // list of sites allowed access to your addresses" (Metamask > Settings > Connections)
-      // To avoid errors, we reset the dapp state 
+      // To avoid errors, we reset the dapp state
       if (newAddress === undefined) {
         return this._resetState();
       }
-      
+
       this._initialize(newAddress);
     });
-    
+
     // We reset the dapp state if the network is changed
     window.ethereum.on("networkChanged", ([networkId]) => {
       this._stopPollingData();
@@ -341,24 +344,24 @@ export class Dapp extends React.Component {
   }
 
   async _updateHoldings() {
+      const totalSupply = await this._token.totalSupply();
+      this.setState({totalSupply})
 
-    let prev_balance = this.state.balance;
-    const balance = await this._token.balanceOf(this.state.selectedAddress);
 
-    if (balance == undefined || prev_balance == undefined || balance.toString() != prev_balance.toString()) {
-        this.setState({ balance });
+      let prev_balance = this.state.balance;
+      const balance = await this._token.balanceOf(this.state.selectedAddress);
 
-        let holdings = [];
+      if (balance == undefined || prev_balance == undefined || balance.toString() != prev_balance.toString()) {
+          this.setState({ balance });
 
-        for (let i = 0; i < balance; i++) {
-            let next_holding = await this._token.tokenOfOwnerByIndex(this.state.selectedAddress, i );
-            holdings.push(next_holding);
-            this.setState({ holdings })
-        }
-    }
+          let holdings = [];
 
-    const totalSupply = await this._token.totalSupply();
-
+          for (let i = 0; i < balance; i++) {
+              let next_holding = await this._token.tokenOfOwnerByIndex(this.state.selectedAddress, i );
+              holdings.push(next_holding);
+              this.setState({ holdings })
+          }
+      }
   }
 
   async _handleNumberClicked(id) {
@@ -524,13 +527,13 @@ export class Dapp extends React.Component {
     this.setState(this.initialState);
   }
 
-  // This method checks if Metamask selected network is Localhost:8545 
+  // This method checks if Metamask selected network is Localhost:8545
   _checkNetwork() {
     if (window.ethereum.networkVersion == NETWORK_ID) {
       return true;
     }
 
-    this.setState({ 
+    this.setState({
       networkError: `Please connect Metamask to the correct network (ID: ${NETWORK_ID})`
     });
 
